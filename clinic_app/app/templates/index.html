@@ -1,0 +1,41 @@
+{% extends "base.html" %}
+
+{% block title %}Главная{% endblock %}
+
+{% block content %}
+    <h2>Аналитические Запросы</h2>
+
+    <div class="query-section">
+        <h3>1. Узнать количество вызовов за определенный день</h3>
+        <form action="{{ url_for('main.handle_query') }}" method="post">
+            <input type="hidden" name="query_type" value="calls_by_date">
+            <label for="date">Выберите дату:</label>
+            <input type="date" id="date" name="date" required>
+            <button type="submit">Выполнить</button>
+        </form>
+    </div>
+
+    <div class="query-section">
+        <h3>2. Узнать количество больных с определенным диагнозом</h3>
+        <form action="{{ url_for('main.handle_query') }}" method="post">
+            <input type="hidden" name="query_type" value="patients_by_diagnosis">
+            <label for="diagnosis">Введите диагноз:</label>
+            <input type="text" id="diagnosis" name="diagnosis" placeholder="Например, ОРВИ" required>
+            <button type="submit">Выполнить</button>
+        </form>
+    </div>
+
+    <div class="query-section">
+        <h3>3. Узнать побочные эффекты лекарства</h3>
+        <form action="{{ url_for('main.handle_query') }}" method="post">
+            <input type="hidden" name="query_type" value="side_effects_by_medicine">
+            <label for="medicine_name">Выберите лекарство:</label>
+            <select id="medicine_name" name="medicine_name" required>
+                {% for med in medicines %}
+                    <option value="{{ med.name }}">{{ med.name }}</option>
+                {% endfor %}
+            </select>
+            <button type="submit">Выполнить</button>
+        </form>
+    </div>
+{% endblock %}

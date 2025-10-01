@@ -1,0 +1,27 @@
+{% extends "base.html" %}
+
+{% block title %}Добавить пациента{% endblock %}
+
+{% block content %}
+    <h2>Добавление нового пациента</h2>
+    <div class="form-section">
+        <form action="{{ url_for('main.add_patient') }}" method="post">
+            <label for="name">ФИО:</label>
+            <input type="text" id="name" name="name" required>
+
+            <label for="gender">Пол:</label>
+            <select id="gender" name="gender" required>
+                <option value="Мужской">Мужской</option>
+                <option value="Женский">Женский</option>
+            </select>
+
+            <label for="birth_date">Дата рождения:</label>
+            <input type="date" id="birth_date" name="birth_date" required>
+
+            <label for="address">Домашний адрес:</label>
+            <input type="text" id="address" name="address" required>
+
+            <button type="submit">Добавить пациента</button>
+        </form>
+    </div>
+{% endblock %}

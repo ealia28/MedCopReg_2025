@@ -1,0 +1,21 @@
+{% extends "base.html" %}
+
+{% block title %}Список приёмов{% endblock %}
+
+{% block content %}
+    <h2>Журнал приёмов</h2>
+    <a href="{{ url_for('main.add_appointment') }}" class="button-link">Создать новую запись</a>
+    {% for appt in appointments %}
+    <div class="appointment-card">
+        <h3>Приём #{{ appt.id }} от {{ appt.date.strftime('%d.%m.%Y') }}</h3>
+        <p><strong>Пациент:</strong> {{ appt.patient.name }}</p>
+        <p><strong>Врач:</strong> {{ appt.doctor.name }}</p>
+        <p><strong>Место:</strong> {{ appt.location }}</p>
+        <p><strong>Симптомы:</strong> {{ appt.symptoms }}</p>
+        <p><strong>Диагноз:</strong> {{ appt.diagnosis }}</p>
+        <p><strong>Предписания:</strong> {{ appt.prescription }}</p>
+    </div>
+    {% else %}
+        <p>Записей о приёмах пока нет.</p>
+    {% endfor %}
+{% endblock %}

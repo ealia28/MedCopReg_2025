@@ -1,0 +1,12 @@
+{% extends "base.html" %}
+
+{% block title %}Результаты запроса{% endblock %}
+
+{% block content %}
+    <h2>Результаты вашего запроса</h2>
+    <div class="results">
+        <h3>{{ result.title }}</h3>
+        <p>{{ result.data }}</p>
+    </div>
+    <a href="{{ url_for('main.index') }}" style="display: inline-block; margin-top: 20px;">&larr; Назад к запросам</a>
+{% endblock %}

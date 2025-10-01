@@ -1,0 +1,41 @@
+{% extends "base.html" %}
+
+{% block title %}Добавить запись о приёме{% endblock %}
+
+{% block content %}
+    <h2>Новая запись о приёме</h2>
+    <div class="form-section">
+        <form action="{{ url_for('main.add_appointment') }}" method="post">
+            <label for="patient_id">Пациент:</label>
+            <select id="patient_id" name="patient_id" required>
+                {% for patient in patients %}
+                <option value="{{ patient.id }}">{{ patient.name }}</option>
+                {% endfor %}
+            </select>
+
+            <label for="doctor_id">Врач:</label>
+            <select id="doctor_id" name="doctor_id" required>
+                {% for doctor in doctors %}
+                <option value="{{ doctor.id }}">{{ doctor.name }}</option>
+                {% endfor %}
+            </select>
+
+            <label for="date">Дата приёма:</label>
+            <input type="date" id="date" name="date" required>
+
+            <label for="location">Место приёма:</label>
+            <input type="text" id="location" name="location" placeholder="Клиника или На дому" required>
+
+            <label for="symptoms">Симптомы:</label>
+            <textarea id="symptoms" name="symptoms" rows="3" required></textarea>
+
+            <label for="diagnosis">Диагноз:</label>
+            <input type="text" id="diagnosis" name="diagnosis" required>
+
+            <label for="prescription">Предписания:</label>
+            <textarea id="prescription" name="prescription" rows="4" required></textarea>
+
+            <button type="submit">Сохранить запись</button>
+        </form>
+    </div>
+{% endblock %}

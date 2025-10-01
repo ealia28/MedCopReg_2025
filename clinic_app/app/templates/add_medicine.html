@@ -1,0 +1,24 @@
+{% extends "base.html" %}
+
+{% block title %}Добавить лекарство{% endblock %}
+
+{% block content %}
+    <h2>Добавление нового лекарства</h2>
+    <div class="form-section">
+        <form action="{{ url_for('main.add_medicine') }}" method="post">
+            <label for="name">Название лекарства:</label>
+            <input type="text" id="name" name="name" required>
+
+            <label for="usage">Способ приема:</label>
+            <textarea id="usage" name="usage" rows="3" required></textarea>
+
+            <label for="action">Предполагаемое действие:</label>
+            <textarea id="action" name="action" rows="4" required></textarea>
+
+            <label for="side_effects">Возможные побочные эффекты:</label>
+            <textarea id="side_effects" name="side_effects" rows="4" required></textarea>
+
+            <button type="submit">Добавить в базу</button>
+        </form>
+    </div>
+{% endblock %}

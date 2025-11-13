@@ -38,6 +38,11 @@ def handle_query():
 
     return render_template('query_results.html', result=result)
 
+@main_bp.route('/health')
+def health_check():
+    """Проверка работоспособности приложения."""
+    return "OK", 200
+
 @main_bp.route('/patients')
 def list_patients():
     patients = Patient.query.all()

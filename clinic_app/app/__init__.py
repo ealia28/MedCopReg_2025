@@ -27,6 +27,8 @@ from flask import Flask
 from flask_sqlalchemy import SQLAlchemy
 from flask_migrate import Migrate 
 import os
+import subprocess  # Добавили для создания уязвимости High
+import sys
 
 db = SQLAlchemy()
 migrate = Migrate()
@@ -41,12 +43,15 @@ def create_app():
     from app import models
 
     with app.app_context():
-        # Искусственная уязвимость: использование eval() с небезопасным вводом
-        user_input = "2+2"
-        eval(user_input)  # Bandit должен отметить это как HIGH risk
+        # --- Bandit HIGH Risk ---
+        # B602: subprocess_popen_with_shell_equals_true
+        # Это гарантированный HIGH severity.
+        subprocess.call("echo 'hacked'", shell=True)
 
-        # Секрет: тестовый ключ для проверки Gitleaks
-        SECRET_KEY = "TEST_SECRET_KEY_12345"
+        # --- Gitleaks ---
+        # Лучше использовать формат, похожий на реальный токен, чтобы детектор сработал наверняка.
+        # Например, фейковый AWS ключ:
+        AWS_KEY = "AKIAIMNOJVGFDEXAMPLE" 
 
         # Создание таблиц
         db.create_all()
@@ -55,7 +60,9 @@ def create_app():
     from app.routes import main_bp
     app.register_blueprint(main_bp)
 
-    # Искусственная ошибка для Pylint (например, неиспользуемая переменная и нарушение стиля)
-    unused_var = 42
+    # --- Pylint ERROR (Blocker) ---
+    # Это вызовет ошибку E1101 (no-member), так как у модуля sys нет атрибута 'this_does_not_exist'.
+    # Это категория Error, а не Warning.
+    print(sys.this_does_not_exist)
 
     return app

@@ -43,10 +43,17 @@ def create_app():
     from app import models
 
     with app.app_context():
-        # --- Bandit HIGH Risk ---
-        # B602: subprocess_popen_with_shell_equals_true
-        # Это гарантированный HIGH severity.
-        subprocess.call("echo 'hacked'", shell=True)
+        # --- Bandit HIGH Risk (Гарантированный) ---
+        # Мы имитируем получение данных извне (например, от пользователя)
+        unsafe_input = "some_user_input"
+        
+        # Использование переменной внутри shell=True триггерит HIGH severity (B602)
+        subprocess.call("echo " + unsafe_input, shell=True)
+
+        # --- Альтернатива (Тоже HIGH) ---
+        # Использование yaml.load без SafeLoader (B506)
+        import yaml
+        yaml.load("!!python/object/apply:os.system ['rm -rf /']", Loader=yaml.Loader)
 
         # --- Gitleaks ---
         # Лучше использовать формат, похожий на реальный токен, чтобы детектор сработал наверняка.
@@ -66,3 +73,4 @@ def create_app():
     print(sys.this_does_not_exist)
 
     return app
+

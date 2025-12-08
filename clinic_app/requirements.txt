@@ -10,3 +10,4 @@ Flask-Migrate==4.0.7
 alembic==1.14.0
 cryptography
 gunicorn
+pytest

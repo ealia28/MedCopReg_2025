@@ -18,3 +18,4 @@ def app():
 def client(app):
     return app.test_client()
 
+

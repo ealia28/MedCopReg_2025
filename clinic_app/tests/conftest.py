@@ -1,5 +1,5 @@
 import pytest
-from clinic_app.app import create_app, db
+from .clinic_app.app import create_app, db
 
 @pytest.fixture
 def app():
@@ -17,5 +17,6 @@ def app():
 @pytest.fixture
 def client(app):
     return app.test_client()
+
 
 

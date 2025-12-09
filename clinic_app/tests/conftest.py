@@ -1,5 +1,11 @@
+import sys
+import os
+
+BASE_DIR = os.path.abspath(os.path.join(os.path.dirname(__file__), '..'))
+sys.path.insert(0, BASE_DIR)
+
 import pytest
-from clinic_app.app.__init__ import create_app, db
+from app import create_app, db
 
 @pytest.fixture
 def app():
@@ -17,6 +23,7 @@ def app():
 @pytest.fixture
 def client(app):
     return app.test_client()
+
 
 
 

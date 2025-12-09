@@ -7,7 +7,7 @@ Jinja2==3.1.4
 click==8.1.7
 itsdangerous==2.2.0
 Flask-Migrate==2.7.0
-alembic==1.14.0
+alembic==1.10.4
 cryptography
 gunicorn
 pytest

@@ -7,19 +7,21 @@ migrate = Migrate()
 
 def create_app(testing=False):
     app = Flask(__name__)
-    
+    app.config.from_object('config.Config')
+
     if testing:
-        app.config["SQLALCHEMY_DATABASE_URI"] = "sqlite:///:memory:"
         app.config["TESTING"] = True
-    else:
-        app.config["SQLALCHEMY_DATABASE_URI"] = os.getenv("DATABASE_URL")
+        app.config["SQLALCHEMY_DATABASE_URI"] = "sqlite:///:memory:"
 
     db.init_app(app)
+    migrate.init_app(app, db)
 
-    # with app.app_context():
-    #     db.create_all()
+    from app import models
+    from app.routes import main_bp
+    app.register_blueprint(main_bp)
 
     return app
+
 
 # from flask import Flask
 # from flask_sqlalchemy import SQLAlchemy
@@ -71,6 +73,7 @@ def create_app(testing=False):
 #     print(sys.this_does_not_exist)
 
 #     return app
+
 
 
 

@@ -3,16 +3,15 @@ from app import db
 from datetime import date
 import pytest
 
-def test_create_patient(app):
-    p = Patient(
-        name="Иван Иванов",
-        gender="male",
-        birth_date=date(1990, 1, 1),
-        address="Адрес 1"
-    )
+def test_create_patient(db_session):
+    from app.models import Patient
+
+    p = Patient(name="Test", gender="M", birth_date="2000-01-01")
     db.session.add(p)
     db.session.commit()
+
     assert p.id is not None
+
 
 def test_unique_medicine_name(app):
     m1 = Medicine(name="Аспирин", usage="...", action="...", side_effects="...")
@@ -44,3 +43,4 @@ def test_create_appointment(app):
     db.session.commit()
 
     assert a.id is not None
+

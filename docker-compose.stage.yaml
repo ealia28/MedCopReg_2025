@@ -19,7 +19,7 @@ services:
       timeout: 5s
       retries: 5
 
-  web:
+  medcopreg_web:
     image: ealia82/medcopreg:${IMAGE_TAG:-latest}
     container_name: medcopreg_web
     restart: always

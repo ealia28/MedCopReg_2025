@@ -25,7 +25,7 @@ def test_calls_by_date(client, app):
         "date": "2024-01-01"
     })
 
-    assert b"Всего вызовов" in response.data
+    assert "Всего вызовов".encode('utf-8') in response.data
     assert b"1" in response.data
 
 
@@ -44,6 +44,7 @@ def test_side_effects_query(client, app):
         "medicine_name": "Парацетамол"
     })
 
-    assert b"Жар" in response.data
+    assert "Жар".encode('utf-8') in response.data
+
 
 

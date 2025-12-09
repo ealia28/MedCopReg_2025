@@ -1,8 +1,13 @@
-def test_create_patient(db_session):
-    from app.models import Patient
+from app.models import Patient
+from app import db
 
-    p = Patient(name="Test", gender="M", birth_date="2000-01-01")
-    db.session.add(p)
-    db.session.commit()
+def test_add_patient(client, app):
+    response = client.post("/add-patient", data={
+        "name": "Test Person",
+        "gender": "male",
+        "birth_date": "1990-01-01",
+        "address": "Some street"
+    }, follow_redirects=True)
 
-    assert p.id is not None
+    assert response.status_code == 200
+    assert Patient.query.count() == 1

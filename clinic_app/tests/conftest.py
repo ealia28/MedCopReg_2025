@@ -1,4 +1,10 @@
+import sys
+import os
 import pytest
+
+BASE_DIR = os.path.abspath(os.path.join(os.path.dirname(__file__), '..'))
+sys.path.insert(0, BASE_DIR)
+
 from app import create_app, db
 
 @pytest.fixture(scope="session")
@@ -25,3 +31,4 @@ def db_session(app):
         yield db
         db.session.remove()
         db.drop_all()
+

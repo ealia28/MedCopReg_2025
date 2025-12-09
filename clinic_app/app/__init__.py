@@ -16,8 +16,8 @@ def create_app(testing=False):
 
     db.init_app(app)
 
-    with app.app_context():
-        db.create_all()
+    # with app.app_context():
+    #     db.create_all()
 
     return app
 
@@ -71,6 +71,7 @@ def create_app(testing=False):
 #     print(sys.this_does_not_exist)
 
 #     return app
+
 
 
 

@@ -5,24 +5,22 @@ from flask_migrate import Migrate
 db = SQLAlchemy()
 migrate = Migrate()
 
-def create_app():
+def create_app(testing=False):
     app = Flask(__name__)
-    app.config.from_object('config.Config')
     
+    if testing:
+        app.config["SQLALCHEMY_DATABASE_URI"] = "sqlite:///:memory:"
+        app.config["TESTING"] = True
+    else:
+        app.config["SQLALCHEMY_DATABASE_URI"] = os.getenv("DATABASE_URL")
+
     db.init_app(app)
-    migrate.init_app(app, db)
-    
-    from app import models
 
     with app.app_context():
-        # Это создаст все таблисы автоматически
         db.create_all()
-        print("✅ Database tables created successfully")
-
-    from app.routes import main_bp
-    app.register_blueprint(main_bp)
 
     return app
+
 # from flask import Flask
 # from flask_sqlalchemy import SQLAlchemy
 # from flask_migrate import Migrate 
@@ -73,5 +71,6 @@ def create_app():
 #     print(sys.this_does_not_exist)
 
 #     return app
+
 
 

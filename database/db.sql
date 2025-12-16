@@ -38,5 +38,3 @@ CREATE TABLE app_appointment (
     CONSTRAINT fk_appointment_patient FOREIGN KEY (appointment_patient_id) REFERENCES app_patient (patient_id),
     CONSTRAINT fk_appointment_doctor FOREIGN KEY (appointment_doctor_id) REFERENCES app_doctor (doctor_id)
 );
-
-

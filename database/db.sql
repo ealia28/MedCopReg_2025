@@ -42,3 +42,4 @@ CREATE TABLE app_appointment (
         FOREIGN KEY (appointment_doctor_id)
         REFERENCES app_doctor (doctor_id)
 );
+

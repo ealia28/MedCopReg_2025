@@ -35,11 +35,8 @@ CREATE TABLE app_appointment (
     PRIMARY KEY (appointment_id),
     KEY idx_appointment_patient_id (appointment_patient_id),
     KEY idx_appointment_doctor_id (appointment_doctor_id),
-    CONSTRAINT fk_appointment_patient
-        FOREIGN KEY (appointment_patient_id)
-        REFERENCES app_patient (patient_id),
-    CONSTRAINT fk_appointment_doctor
-        FOREIGN KEY (appointment_doctor_id)
-        REFERENCES app_doctor (doctor_id)
+    CONSTRAINT fk_appointment_patient FOREIGN KEY (appointment_patient_id) REFERENCES app_patient (patient_id),
+    CONSTRAINT fk_appointment_doctor FOREIGN KEY (appointment_doctor_id) REFERENCES app_doctor (doctor_id)
 );
+
 

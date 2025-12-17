@@ -12,6 +12,9 @@
                 <th>Пол</th>
                 <th>Дата рождения</th>
                 <th>Адрес</th>
+                <th>Email</th>  <!-- НОВЫЙ СТОЛБЕЦ -->
+                <th>Телефон</th> <!-- НОВЫЙ СТОЛБЕЦ -->
+                <th>Дата регистрации</th> <!-- НОВЫЙ СТОЛБЕЦ -->
             </tr>
         </thead>
         <tbody>
@@ -21,8 +24,12 @@
                 <td>{{ patient.gender }}</td>
                 <td>{{ patient.birth_date }}</td>
                 <td>{{ patient.address }}</td>
+                <td>{{ patient.email or '—' }}</td>  <!-- НОВОЕ ПОЛЕ -->
+                <td>{{ patient.phone or '—' }}</td>  <!-- НОВОЕ ПОЛЕ -->
+                <td>{{ patient.created_at.strftime('%d.%m.%Y') if patient.created_at else '—' }}</td> <!-- НОВОЕ ПОЛЕ -->
             </tr>
             {% endfor %}
         </tbody>
     </table>
+
 {% endblock %}

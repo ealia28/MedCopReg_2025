@@ -18,6 +18,7 @@ def create_app(testing=False):
 
     from app import models
     with app.app_context():
+        db.drop_all()
         db.create_all()
         print("✅ Database tables created successfully")
     from app.routes import main_bp
@@ -76,6 +77,7 @@ def create_app(testing=False):
 #     print(sys.this_does_not_exist)
 
 #     return app
+
 
 
 

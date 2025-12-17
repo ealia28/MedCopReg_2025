@@ -1,4 +1,5 @@
 from app import db
+from datetime import datetime
 
 class Patient(db.Model):
     id = db.Column(db.Integer, primary_key=True)
@@ -39,4 +40,5 @@ class Appointment(db.Model):
     patient_id = db.Column(db.Integer, db.ForeignKey('patient.id'), nullable=False)
     doctor_id = db.Column(db.Integer, db.ForeignKey('doctor.id'), nullable=False)
     created_at = db.Column(db.DateTime, default=datetime.utcnow)  # НОВОЕ ПОЛЕ: дата создания
+
 

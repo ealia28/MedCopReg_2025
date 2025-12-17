@@ -1,44 +1,54 @@
-CREATE TABLE app_patient (
-    patient_id INT NOT NULL AUTO_INCREMENT,
-    patient_full_name VARCHAR(150) NOT NULL,
-    patient_gender_code VARCHAR(10) NOT NULL,
-    patient_birth_date DATE NOT NULL,
-    patient_address_text VARCHAR(255) NOT NULL,
-    PRIMARY KEY (patient_id)
+CREATE TABLE patient (
+    id INT NOT NULL AUTO_INCREMENT,
+    name VARCHAR(150) NOT NULL,
+    gender VARCHAR(10) NOT NULL,
+    birth_date DATE NOT NULL,
+    address VARCHAR(255) NOT NULL,
+    email VARCHAR(100),
+    phone VARCHAR(20),
+    created_at DATETIME DEFAULT CURRENT_TIMESTAMP,
+    PRIMARY KEY (id)
 );
 
-CREATE TABLE app_doctor (
-    doctor_id INT NOT NULL AUTO_INCREMENT,
-    doctor_full_name VARCHAR(150) NOT NULL,
-    PRIMARY KEY (doctor_id)
+CREATE TABLE doctor (
+    id INT NOT NULL AUTO_INCREMENT,
+    name VARCHAR(150) NOT NULL,
+    specialty VARCHAR(100),
+    license_number VARCHAR(50),
+    PRIMARY KEY (id)
 );
 
-CREATE TABLE app_medicine (
-    medicine_id INT NOT NULL AUTO_INCREMENT,
-    medicine_name_text VARCHAR(100) NOT NULL,
-    medicine_usage_text TEXT NOT NULL,
-    medicine_action_text TEXT NOT NULL,
-    medicine_side_effects_text TEXT NOT NULL,
-    UNIQUE KEY uq_medicine_name_text (medicine_name_text),
-    PRIMARY KEY (medicine_id)
+CREATE TABLE medicine (
+    id INT NOT NULL AUTO_INCREMENT,
+    name VARCHAR(100) NOT NULL,
+    usage TEXT NOT NULL,
+    action TEXT NOT NULL,
+    side_effects TEXT NOT NULL,
+    dosage VARCHAR(100),
+    manufacturer VARCHAR(150),
+    UNIQUE KEY uq_medicine_name (name),
+    PRIMARY KEY (id)
 );
 
-CREATE TABLE app_appointment (
-    appointment_id INT NOT NULL AUTO_INCREMENT,
-    appointment_date_value DATE NOT NULL,
-    appointment_location_text VARCHAR(100) NOT NULL,
-    appointment_symptoms_text TEXT NOT NULL,
-    appointment_diagnosis_text VARCHAR(150) NOT NULL,
-    appointment_prescription_text TEXT NOT NULL,
-    appointment_patient_id INT NOT NULL,
-    appointment_doctor_id INT NOT NULL,
-    PRIMARY KEY (appointment_id),
-    KEY idx_appointment_patient_id (appointment_patient_id),
-    KEY idx_appointment_doctor_id (appointment_doctor_id),
+CREATE TABLE appointment (
+    id INT NOT NULL AUTO_INCREMENT,
+    date DATE NOT NULL,
+    location VARCHAR(100) NOT NULL,
+    symptoms TEXT NOT NULL,
+    diagnosis VARCHAR(150) NOT NULL,
+    prescription TEXT NOT NULL,
+    status VARCHAR(20) DEFAULT 'completed',
+    follow_up_date DATE,
+    patient_id INT NOT NULL,
+    doctor_id INT NOT NULL,
+    created_at DATETIME DEFAULT CURRENT_TIMESTAMP,
+    PRIMARY KEY (id),
+    KEY idx_appointment_patient_id (patient_id),
+    KEY idx_appointment_doctor_id (doctor_id),
     CONSTRAINT fk_appointment_patient
-    FOREIGN KEY (appointment_patient_id)
-    REFERENCES app_patient (patient_id),
+    FOREIGN KEY (patient_id)
+    REFERENCES patient (id),
     CONSTRAINT fk_appointment_doctor
-    FOREIGN KEY (appointment_doctor_id)
-    REFERENCES app_doctor (doctor_id)
+    FOREIGN KEY (doctor_id)
+    REFERENCES doctor (id)
 );

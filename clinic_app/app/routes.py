@@ -56,7 +56,9 @@ def add_patient():
             name=request.form['name'],
             gender=request.form['gender'],
             birth_date=birth_date,
-            address=request.form['address']
+            address=request.form['address'],
+            email=request.form.get('email'),  # НОВОЕ ПОЛЕ
+            phone=request.form.get('phone')   # НОВОЕ ПОЛЕ
         )
         db.session.add(new_patient)
         db.session.commit()
@@ -78,6 +80,8 @@ def add_appointment():
             symptoms=request.form['symptoms'],
             diagnosis=request.form['diagnosis'],
             prescription=request.form['prescription'],
+            status=request.form.get('status', 'completed'),  # НОВОЕ ПОЛЕ
+            follow_up_date=datetime.strptime(request.form['follow_up_date'], '%Y-%m-%d').date() if request.form.get('follow_up_date') else None,  # НОВОЕ ПОЛЕ
             patient_id=int(request.form['patient_id']),
             doctor_id=int(request.form['doctor_id'])
         )
@@ -102,3 +106,4 @@ def add_medicine():
         db.session.commit()
         return redirect(url_for('main.index'))
     return render_template('add_medicine.html')
+

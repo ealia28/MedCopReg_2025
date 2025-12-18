@@ -10,6 +10,7 @@ class Patient(db.Model):
     email = db.Column(db.String(100), nullable=True)  # НОВОЕ ПОЛЕ: email пациента
     phone = db.Column(db.String(20), nullable=True)   # НОВОЕ ПОЛЕ: телефон пациента
     created_at = db.Column(db.DateTime, default=datetime.utcnow)  # НОВОЕ ПОЛЕ: дата создания
+    insurance_number = db.Column(db.String(50), nullable=True) # НОВОЕ ПОЛЕ ДЛЯ ЗАДАНИЯ 11
     appointments = db.relationship('Appointment', backref='patient', lazy=True)
 
 class Doctor(db.Model):
@@ -40,5 +41,6 @@ class Appointment(db.Model):
     patient_id = db.Column(db.Integer, db.ForeignKey('patient.id'), nullable=False)
     doctor_id = db.Column(db.Integer, db.ForeignKey('doctor.id'), nullable=False)
     created_at = db.Column(db.DateTime, default=datetime.utcnow)  # НОВОЕ ПОЛЕ: дата создания
+
 
 

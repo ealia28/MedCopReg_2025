@@ -1,8 +1,8 @@
-"""NewMigration
+"""initial_full_schema
 
-Revision ID: 383af2073772
+Revision ID: 2583a5dc8268
 Revises: 
-Create Date: 2025-10-01 10:40:01.447692
+Create Date: 2025-12-18 00:23:55.999466
 
 """
 from alembic import op
@@ -10,7 +10,7 @@ import sqlalchemy as sa
 
 
 # revision identifiers, used by Alembic.
-revision = '383af2073772'
+revision = '2583a5dc8268'
 down_revision = None
 branch_labels = None
 depends_on = None
@@ -21,6 +21,8 @@ def upgrade():
     op.create_table('doctor',
     sa.Column('id', sa.Integer(), nullable=False),
     sa.Column('name', sa.String(length=150), nullable=False),
+    sa.Column('specialty', sa.String(length=100), nullable=True),
+    sa.Column('license_number', sa.String(length=50), nullable=True),
     sa.PrimaryKeyConstraint('id')
     )
     op.create_table('medicine',
@@ -29,6 +31,8 @@ def upgrade():
     sa.Column('usage', sa.Text(), nullable=False),
     sa.Column('action', sa.Text(), nullable=False),
     sa.Column('side_effects', sa.Text(), nullable=False),
+    sa.Column('dosage', sa.String(length=100), nullable=True),
+    sa.Column('manufacturer', sa.String(length=150), nullable=True),
     sa.PrimaryKeyConstraint('id'),
     sa.UniqueConstraint('name')
     )
@@ -38,6 +42,9 @@ def upgrade():
     sa.Column('gender', sa.String(length=10), nullable=False),
     sa.Column('birth_date', sa.Date(), nullable=False),
     sa.Column('address', sa.String(length=255), nullable=False),
+    sa.Column('email', sa.String(length=100), nullable=True),
+    sa.Column('phone', sa.String(length=20), nullable=True),
+    sa.Column('created_at', sa.DateTime(), nullable=True),
     sa.PrimaryKeyConstraint('id')
     )
     op.create_table('appointment',
@@ -47,8 +54,11 @@ def upgrade():
     sa.Column('symptoms', sa.Text(), nullable=False),
     sa.Column('diagnosis', sa.String(length=150), nullable=False),
     sa.Column('prescription', sa.Text(), nullable=False),
+    sa.Column('status', sa.String(length=20), nullable=True),
+    sa.Column('follow_up_date', sa.Date(), nullable=True),
     sa.Column('patient_id', sa.Integer(), nullable=False),
     sa.Column('doctor_id', sa.Integer(), nullable=False),
+    sa.Column('created_at', sa.DateTime(), nullable=True),
     sa.ForeignKeyConstraint(['doctor_id'], ['doctor.id'], ),
     sa.ForeignKeyConstraint(['patient_id'], ['patient.id'], ),
     sa.PrimaryKeyConstraint('id')

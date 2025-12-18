@@ -7,7 +7,7 @@ migrate = Migrate()
 
 def create_app(testing=False):
     app = Flask(__name__)
-    app.config.from_object('config.Config')
+    app.config.from_object('clinic_app.config.Config')
 
     if testing:
         app.config["TESTING"] = True
@@ -73,6 +73,7 @@ def create_app(testing=False):
 #     print(sys.this_does_not_exist)
 
 #     return app
+
 
 
 

@@ -34,3 +34,7 @@ services:
 
 volumes:
   db_data:
+
+networks:
+  default:
+    name: medcopreg_stage_net
